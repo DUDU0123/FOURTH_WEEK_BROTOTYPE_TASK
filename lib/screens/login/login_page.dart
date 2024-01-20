@@ -2,14 +2,18 @@ import 'package:first_app/screens/home/home_page.dart';
 import 'package:first_app/utils/height_width.dart';
 import 'package:first_app/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../main.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
+
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController userNameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -45,24 +49,7 @@ class LoginPage extends StatelessWidget {
                         horizontal: 30, vertical: 12),
                     backgroundColor: Colors.black),
                 onPressed: () {
-                  final userName = userNameController.text;
-                  final password = passwordController.text;
-
-                  if (userName == "user" && password == "password") {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage(),),);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        duration: Duration(seconds: 1),
-                        content: Text(
-                          "Invalid username and password",
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        ),
-                        backgroundColor: Colors.black,
-                      ),
-                    );
-                  }
+                  userLogInDataCheck(context);
                 },
                 child: const Text(
                   "Login",
@@ -75,5 +62,31 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> userLogInDataCheck(BuildContext context) async {
+    final userName = userNameController.text;
+    final password = passwordController.text;
+    if (userName.isNotEmpty && password.isNotEmpty && userName == password) {
+      final sharedPrefs = await SharedPreferences.getInstance();
+      await sharedPrefs.setBool(KEY_VALUE, true);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 1),
+          content: Text(
+            "Invalid username and password",
+            style: TextStyle(color: Colors.white, fontSize: 15),
+          ),
+          backgroundColor: Colors.black,
+        ),
+      );
+    }
   }
 }

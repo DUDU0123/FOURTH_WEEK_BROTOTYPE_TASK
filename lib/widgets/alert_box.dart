@@ -1,5 +1,8 @@
 import 'package:first_app/screens/login/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 void showAlertBox(
   BuildContext context,
@@ -34,8 +37,14 @@ void showAlertBox(
           ),
         ),
         TextButton(
-          onPressed: () {
-            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder:  (context) => const LoginPage(),), (route) => false);
+          onPressed: () async {
+            final sharedPrefs = await SharedPreferences.getInstance();
+            sharedPrefs.clear();
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => LoginPage(),
+                ),
+                (route) => false);
           },
           child: const Text(
             "Logout",

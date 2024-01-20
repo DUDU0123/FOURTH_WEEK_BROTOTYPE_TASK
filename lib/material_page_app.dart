@@ -1,4 +1,5 @@
 import 'package:first_app/screens/login/login_page.dart';
+import 'package:first_app/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class MaterialPageApp extends StatelessWidget {
@@ -6,8 +7,8 @@ class MaterialPageApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LoginPage()
+    return  MaterialApp(
+      home: SplashScreen()
     );
   }
 }
