@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView.separated(
         padding: const EdgeInsets.only(top: 15, bottom: 15),
-        itemCount: 15,
+        itemCount: userList.length,
         itemBuilder: (context, index) {
           return ListTileWidget(
             imageName: userList[index].logoImage,

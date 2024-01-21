@@ -4,7 +4,8 @@ class ListTileWidget extends StatelessWidget {
   const ListTileWidget({
     super.key,
     required this.text,
-    required this.borderRadius, required this.imageName,
+    required this.borderRadius,
+    required this.imageName,
   });
 
   final String text;
@@ -14,9 +15,7 @@ class ListTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
-        
-      },
+      onTap: () {},
       leading: Container(
         width: 50,
         height: 50,
@@ -26,7 +25,14 @@ class ListTileWidget extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(borderRadius),
-          child: Image.asset(imageName, fit: BoxFit.cover,)),
+          child: Transform.scale(
+            scale: 1.2,
+            child: Image.asset(
+              imageName,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
       ),
       title: Text(
         text,
