@@ -36,6 +36,7 @@ class HomePage extends StatelessWidget {
             imageName: userList[index].logoImage,
             text: userList[index].name,
             borderRadius: index % 2 == 0 ? 10 : 50,
+            color: index%2==0?Colors.orange:Colors.blueAccent,
           );
         },
         separatorBuilder: (context, index) => const SizedBox(

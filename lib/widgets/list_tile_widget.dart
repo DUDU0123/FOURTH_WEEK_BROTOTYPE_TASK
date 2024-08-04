@@ -5,16 +5,18 @@ class ListTileWidget extends StatelessWidget {
     super.key,
     required this.text,
     required this.borderRadius,
-    required this.imageName,
+    required this.imageName, required this.color,
   });
 
   final String text;
   final double borderRadius;
   final String imageName;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      tileColor: color,
       onTap: () {},
       leading: Container(
         width: 50,
@@ -37,6 +39,7 @@ class ListTileWidget extends StatelessWidget {
       title: Text(
         text,
         style: const TextStyle(
+          color: Colors.white,
           fontSize: 22,
           fontWeight: FontWeight.w500,
         ),
